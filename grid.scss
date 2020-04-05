@@ -1,0 +1,649 @@
+/*!
+ * Bootstrap Grid v4.1.3 (https://getbootstrap.com/)
+ * Copyright 2011-2018 The Bootstrap Authors
+ * Copyright 2011-2018 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+$base-color : #aaaaaa
+
+$cols : 12
+//$col1 : 8.333333 * 1%
+//1.066666666666667
+$max_width_exp: 1.066666666666667
+$col1: (100/$cols) * 1%
+//$medias: sm 576 540, md 768 720, lg 992 960, xl 1200 1140;
+$medias: sm 576, md 768, lg 992, xl 1200, xxl 1500
+
+
+@-ms-viewport
+  width: device-width
+
+html
+  box-sizing: border-box
+  -ms-overflow-style: scrollbar
+
+*,
+*::before,
+*::after 
+  box-sizing: inherit
+
+
+.container 
+  width: 100%
+  padding-right: 15px
+  padding-left: 15px
+  margin-right: auto
+  margin-left: auto
+
+
+
+@each $media in $medias 
+  $key: nth($media, 1);
+  $value: nth($media, 2);
+  //$value2: nth($media, 3);
+  //.icon-#{$key} 
+  @media (min-width: $value * 1px)
+    //&:after 
+    //  content: $value;
+    .container 
+      //max-width: $value2 * 1px 
+      max-width: ($value/$max_width_exp) * 1px 
+
+
+
+.container-fluid 
+  width: 100%
+  padding-right: 15px
+  padding-left: 15px
+  margin-right: auto
+  margin-left: auto
+
+
+.row 
+  display: -ms-flexbox
+  display: flex
+  -ms-flex-wrap: wrap
+  flex-wrap: wrap
+  margin-right: 0 //-15px
+  margin-left: 0 //-15px
+
+
+.no-gutters 
+  margin-right: 0
+  margin-left: 0
+
+
+.no-gutters > .col,
+.no-gutters > [class*="col-"] 
+  padding-right: 0
+  padding-left: 0
+
+
+  
+
+
+%col-styles 
+  position: relative
+  width: 100%
+  min-height: 1px
+  padding-right: 0 //15px
+  padding-left: 0 //15px
+
+
+@mixin col-list
+  
+  @for $i from 1 through $cols 
+    .col-#{$i}
+      @extend %col-styles; 
+  
+  .col, .col-auto
+    @extend %col-styles;
+    
+  @each $media in $medias 
+    $key: nth($media, 1);
+    $value: nth($media, 2);
+    //$value2: nth($media, 3);
+    //.icon-#{$key} 
+    //@media (min-width: $value * 1px)
+      //&:after 
+    
+    @for $i from 1 through $cols
+        .col-#{$key}-#{$i}
+          @extend %col-styles; 
+    
+    .col-#{$key}, .col-#{$key}-auto
+      @extend %col-styles;
+  
+
+@include col-list;
+  
+
+
+
+.col 
+  -ms-flex-preferred-size: 0
+  flex-basis: 0
+  -ms-flex-positive: 1
+  flex-grow: 1
+  max-width: 100%
+
+
+.col-auto 
+  -ms-flex: 0 0 auto
+  flex: 0 0 auto
+  width: auto
+  max-width: none
+
+
+@for $i from 1 through $cols
+  //ul:nth-child(3n + #{$i}) 
+  .col-#{$i}
+    //background-color: lighten($base-color, $i * 5%);
+    -ms-flex: 0 0 ($col1 * $i)
+    flex: 0 0 ($col1 * $i)
+    max-width: ($col1 * $i)
+      
+
+.order-first 
+  -ms-flex-order: -1
+  order: -1
+
+
+.order-last 
+  -ms-flex-order: 13
+  order: 13
+
+
+
+@for $i from 0 through $cols
+  .order-#{$i}
+    -ms-flex-order: #{$i}
+    order: #{$i}
+
+
+@for $i from 1 through ($cols - 1)
+  .offset-#{$i}
+    margin-left: ($col1 * $i)
+
+
+
+
+@each $media in $medias 
+  $key: nth($media, 1);
+  $value: nth($media, 2);
+
+  @media (min-width: $value * 1px) 
+    .col-#{$key}
+      -ms-flex-preferred-size: 0
+      flex-basis: 0
+      -ms-flex-positive: 1
+      flex-grow: 1
+      max-width: 100%
+    
+    .col-#{$key}-auto 
+      -ms-flex: 0 0 auto
+      flex: 0 0 auto
+      width: auto
+      max-width: none
+    
+    
+    @for $i from 0 through $cols
+      .col-#{$key}-#{$i}
+        -ms-flex: 0 0 ($col1 * $i)
+        flex: 0 0 ($col1 * $i)
+        max-width: ($col1 * $i)
+    
+    
+    
+    
+    .order-#{$key}-first 
+      -ms-flex-order: -1
+      order: -1
+    
+    .order-#{$key}-last 
+      -ms-flex-order: 13
+      order: 13
+    
+    
+    @for $i from 0 through $cols
+      .order-#{$key}-#{$i}
+        -ms-flex-order: #{$i}
+        order: #{$i}
+    
+    @for $i from 0 through ($cols - 1)
+      .offset-#{$key}-#{$i}
+        margin-left: ($col1 * $i)
+ 
+ 
+
+  
+
+.d-none 
+  display: none !important
+
+
+.d-inline 
+  display: inline !important
+
+
+.d-inline-block 
+  display: inline-block !important
+
+
+.d-block 
+  display: block !important
+
+
+.d-table 
+  display: table !important
+
+
+.d-table-row 
+  display: table-row !important
+
+
+.d-table-cell 
+  display: table-cell !important
+
+
+.d-flex 
+  display: -ms-flexbox !important
+  display: flex !important
+
+
+.d-inline-flex 
+  display: -ms-inline-flexbox !important
+  display: inline-flex !important
+
+
+
+
+
+@each $media in $medias 
+  $key: nth($media, 1);
+  $value: nth($media, 2);
+
+  //.icon-#{$key} 
+  @media (min-width: $value * 1px)
+    //&:after 
+    //  content: $value;
+    .d-#{$key}-none 
+      display: none !important
+    
+    .d-#{$key}-inline 
+      display: inline !important
+    
+    .d-#{$key}-inline-block 
+      display: inline-block !important
+    
+    .d-#{$key}-block 
+      display: block !important
+    
+    .d-#{$key}-table 
+      display: table !important
+    
+    .d-#{$key}-table-row 
+      display: table-row !important
+    
+    .d-#{$key}-table-cell 
+      display: table-cell !important
+    
+    .d-#{$key}-flex 
+      display: -ms-flexbox !important
+      display: flex !important
+    
+    .d-#{$key}-inline-flex 
+      display: -ms-inline-flexbox !important
+      display: inline-flex !important
+  
+
+
+@media print 
+  .d-print-none 
+    display: none !important
+  
+  .d-print-inline 
+    display: inline !important
+  
+  .d-print-inline-block 
+    display: inline-block !important
+  
+  .d-print-block 
+    display: block !important
+  
+  .d-print-table 
+    display: table !important
+  
+  .d-print-table-row 
+    display: table-row !important
+  
+  .d-print-table-cell 
+    display: table-cell !important
+  
+  .d-print-flex 
+    display: -ms-flexbox !important
+    display: flex !important
+  
+  .d-print-inline-flex 
+    display: -ms-inline-flexbox !important
+    display: inline-flex !important
+  
+
+
+.flex-row 
+  -ms-flex-direction: row !important
+  flex-direction: row !important
+
+
+.flex-column 
+  -ms-flex-direction: column !important
+  flex-direction: column !important
+
+
+.flex-row-reverse 
+  -ms-flex-direction: row-reverse !important
+  flex-direction: row-reverse !important
+
+
+.flex-column-reverse 
+  -ms-flex-direction: column-reverse !important
+  flex-direction: column-reverse !important
+
+
+.flex-wrap 
+  -ms-flex-wrap: wrap !important
+  flex-wrap: wrap !important
+
+
+.flex-nowrap 
+  -ms-flex-wrap: nowrap !important
+  flex-wrap: nowrap !important
+
+
+.flex-wrap-reverse 
+  -ms-flex-wrap: wrap-reverse !important
+  flex-wrap: wrap-reverse !important
+
+
+.flex-fill 
+  -ms-flex: 1 1 auto !important
+  flex: 1 1 auto !important
+
+
+.flex-grow-0 
+  -ms-flex-positive: 0 !important
+  flex-grow: 0 !important
+
+
+.flex-grow-1 
+  -ms-flex-positive: 1 !important
+  flex-grow: 1 !important
+
+
+.flex-shrink-0 
+  -ms-flex-negative: 0 !important
+  flex-shrink: 0 !important
+
+
+.flex-shrink-1 
+  -ms-flex-negative: 1 !important
+  flex-shrink: 1 !important
+
+
+.justify-content-start 
+  -ms-flex-pack: start !important
+  justify-content: flex-start !important
+
+
+.justify-content-end 
+  -ms-flex-pack: end !important
+  justify-content: flex-end !important
+
+
+.justify-content-center 
+  -ms-flex-pack: center !important
+  justify-content: center !important
+
+
+.justify-content-between 
+  -ms-flex-pack: justify !important
+  justify-content: space-between !important
+
+
+.justify-content-around 
+  -ms-flex-pack: distribute !important
+  justify-content: space-around !important
+
+
+.align-items-start 
+  -ms-flex-align: start !important
+  align-items: flex-start !important
+
+
+.align-items-end 
+  -ms-flex-align: end !important
+  align-items: flex-end !important
+
+
+.align-items-center 
+  -ms-flex-align: center !important
+  align-items: center !important
+
+
+.align-items-baseline 
+  -ms-flex-align: baseline !important
+  align-items: baseline !important
+
+
+.align-items-stretch 
+  -ms-flex-align: stretch !important
+  align-items: stretch !important
+
+
+.align-content-start 
+  -ms-flex-line-pack: start !important
+  align-content: flex-start !important
+
+
+.align-content-end 
+  -ms-flex-line-pack: end !important
+  align-content: flex-end !important
+
+
+.align-content-center 
+  -ms-flex-line-pack: center !important
+  align-content: center !important
+
+
+.align-content-between 
+  -ms-flex-line-pack: justify !important
+  align-content: space-between !important
+
+
+.align-content-around 
+  -ms-flex-line-pack: distribute !important
+  align-content: space-around !important
+
+
+.align-content-stretch 
+  -ms-flex-line-pack: stretch !important
+  align-content: stretch !important
+
+
+.align-self-auto 
+  -ms-flex-item-align: auto !important
+  align-self: auto !important
+
+
+.align-self-start 
+  -ms-flex-item-align: start !important
+  align-self: flex-start !important
+
+
+.align-self-end 
+  -ms-flex-item-align: end !important
+  align-self: flex-end !important
+
+
+.align-self-center 
+  -ms-flex-item-align: center !important
+  align-self: center !important
+
+
+.align-self-baseline 
+  -ms-flex-item-align: baseline !important
+  align-self: baseline !important
+
+
+.align-self-stretch 
+  -ms-flex-item-align: stretch !important
+  align-self: stretch !important
+
+
+
+
+@each $media in $medias 
+  $key: nth($media, 1);
+  $value: nth($media, 2);
+
+  //.icon-#{$key} 
+  @media (min-width: $value * 1px)
+    .flex-#{$key}-row 
+      -ms-flex-direction: row !important
+      flex-direction: row !important
+    
+    .flex-#{$key}-column 
+      -ms-flex-direction: column !important
+      flex-direction: column !important
+    
+    .flex-#{$key}-row-reverse 
+      -ms-flex-direction: row-reverse !important
+      flex-direction: row-reverse !important
+    
+    .flex-#{$key}-column-reverse 
+      -ms-flex-direction: column-reverse !important
+      flex-direction: column-reverse !important
+    
+    .flex-#{$key}-wrap 
+      -ms-flex-wrap: wrap !important
+      flex-wrap: wrap !important
+    
+    .flex-#{$key}-nowrap 
+      -ms-flex-wrap: nowrap !important
+      flex-wrap: nowrap !important
+    
+    .flex-#{$key}-wrap-reverse 
+      -ms-flex-wrap: wrap-reverse !important
+      flex-wrap: wrap-reverse !important
+    
+    .flex-#{$key}-fill 
+      -ms-flex: 1 1 auto !important
+      flex: 1 1 auto !important
+    
+    .flex-#{$key}-grow-0 
+      -ms-flex-positive: 0 !important
+      flex-grow: 0 !important
+    
+    .flex-#{$key}-grow-1 
+      -ms-flex-positive: 1 !important
+      flex-grow: 1 !important
+    
+    .flex-#{$key}-shrink-0 
+      -ms-flex-negative: 0 !important
+      flex-shrink: 0 !important
+    
+    .flex-#{$key}-shrink-1 
+      -ms-flex-negative: 1 !important
+      flex-shrink: 1 !important
+    
+    .justify-content-#{$key}-start 
+      -ms-flex-pack: start !important
+      justify-content: flex-start !important
+    
+    .justify-content-#{$key}-end 
+      -ms-flex-pack: end !important
+      justify-content: flex-end !important
+    
+    .justify-content-#{$key}-center 
+      -ms-flex-pack: center !important
+      justify-content: center !important
+    
+    .justify-content-#{$key}-between 
+      -ms-flex-pack: justify !important
+      justify-content: space-between !important
+    
+    .justify-content-#{$key}-around 
+      -ms-flex-pack: distribute !important
+      justify-content: space-around !important
+    
+    .align-items-#{$key}-start 
+      -ms-flex-align: start !important
+      align-items: flex-start !important
+    
+    .align-items-#{$key}-end 
+      -ms-flex-align: end !important
+      align-items: flex-end !important
+    
+    .align-items-#{$key}-center 
+      -ms-flex-align: center !important
+      align-items: center !important
+    
+    .align-items-#{$key}-baseline 
+      -ms-flex-align: baseline !important
+      align-items: baseline !important
+    
+    .align-items-#{$key}-stretch 
+      -ms-flex-align: stretch !important
+      align-items: stretch !important
+    
+    .align-content-#{$key}-start 
+      -ms-flex-line-pack: start !important
+      align-content: flex-start !important
+    
+    .align-content-#{$key}-end 
+      -ms-flex-line-pack: end !important
+      align-content: flex-end !important
+    
+    .align-content-#{$key}-center 
+      -ms-flex-line-pack: center !important
+      align-content: center !important
+    
+    .align-content-#{$key}-between 
+      -ms-flex-line-pack: justify !important
+      align-content: space-between !important
+    
+    .align-content-#{$key}-around 
+      -ms-flex-line-pack: distribute !important
+      align-content: space-around !important
+    
+    .align-content-#{$key}-stretch 
+      -ms-flex-line-pack: stretch !important
+      align-content: stretch !important
+    
+    .align-self-#{$key}-auto 
+      -ms-flex-item-align: auto !important
+      align-self: auto !important
+    
+    .align-self-#{$key}-start 
+      -ms-flex-item-align: start !important
+      align-self: flex-start !important
+    
+    .align-self-#{$key}-end 
+      -ms-flex-item-align: end !important
+      align-self: flex-end !important
+    
+    .align-self-#{$key}-center 
+      -ms-flex-item-align: center !important
+      align-self: center !important
+    
+    .align-self-#{$key}-baseline 
+      -ms-flex-item-align: baseline !important
+      align-self: baseline !important
+    
+    .align-self-#{$key}-stretch 
+      -ms-flex-item-align: stretch !important
+      align-self: stretch !important
+      
+
+
+/*# sourceMappingURL=bootstrap-grid.css.map */
